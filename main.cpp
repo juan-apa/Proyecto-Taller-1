@@ -11,7 +11,7 @@ int main()
 //    scanf("%c", &car);
 //    fflush(stdin);
 //    printf("\nEl numero ascii del caracter ingresado es: %d", car);
-
+//
 
     String cargado;
     String_crear(cargado);
