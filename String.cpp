@@ -276,11 +276,32 @@ bool String_isNumeric(String s){//Devuelve true si el String solo contiene numer
     bool isNumeric = true;
     int i = 0;
 
-    while(s[i] != '\0' && isNumeric){ //Si se que contiene letras, salgo del while
-        if(s[i]<48 || s[i]>57)
-            isNumeric = false; //caso de que el caracter en el que estoy no es un numero (fijarse tabla ASCII)
+    while(s[i]!='\0' && isNumeric){
+        if(i==0){//Cuando me encuentro en la primer posicion
+            if(s[i]== '+' || s[i]=='-' || s[i]== '.'){//Si la primer posicion es un signo o un punto
+                if((s[i]== '+' && s[i+1]== '+') || (s[i]== '-' && s[i+1]=='-')) //Si la segunda posicion es un + o un -, entonces esta mal
+                    isNumeric= false;
+                if(s[i]== '.' && s[i+1]== '.') //caso de que hayan 2 puntos seguidos
+                    isNumeric= false;
+            }
+            else
+                if((s[i]<48 || s[i]>57) && (s[i]!= '.' || s[i]!= '-' || s[i]!= '+')) //Si no es letra ni punto ni signo en la primer posc
+                    isNumeric= false;
+        }
+        else{ //Me encuentro en cualquier posicion menos la primera
+            if(s[i]== '+' || s[i]== '-'){ //Si tengo un signo en la mitad, entonces esta mal
+                isNumeric= false;
+            }
+            if(s[i]== '.' && s[i+1]== '.') //Caso de que hayan 2 puntos seguidos, esta mal
+                isNumeric= false;
+            if((s[i]<48 || s[i]>57)) //caso de que no sea letra
+                if(s[i]!='.') //caso de que no sea ni letra ni punto
+                    isNumeric= false;
+        }
         i++;
     }
     return isNumeric;
 }
+
+
 

@@ -15,12 +15,15 @@ int main()
 
     String cargado;
     String_crear(cargado);
-    printf("Ingrese un String: ");
-    String_cargar(cargado);
-    if(String_isNumeric(cargado))
-        printf("true");
-    else
-        printf("false");
+    while(true){
+        printf("\nIngrese un String: ");
+        String_cargar(cargado);
+        if(String_isNumeric(cargado))
+            printf("true");
+        else
+            printf("false");
+    }
+
 
 //    printf("El String ingresado es: ");
 //    String_mostrar(cargado);
