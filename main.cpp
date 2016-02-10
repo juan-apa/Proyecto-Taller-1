@@ -51,22 +51,6 @@ int main(){
     //ayuda();
     String s;
 
-    //test reconocer comando y luego ecuacion
-//    int i = 0;
-//    char temp;
-//    String comando = new char[80];
-//    while(cargado[i] != '\0'){
-//        temp = cargado[i];
-//        if((temp>64 && temp <91) || (temp>96 && temp<123)){ //caso de que la posicion del String en la que estoy parado es un caracter
-//                                                            //en mayuscula o minuscula
-//            //Aca voy a empezar a guardar los caracteres en un nuevo String. En este String va a quedar el comando.
-//            //TODO agregar una funcion que me agregue chars a un String.
-//
-//        }
-//    }
-
-
-
     //Reconocer ecuacion
     while(true){
         String_crear(s);
@@ -81,14 +65,7 @@ int main(){
         printf("\n\n\n");
 
     }
-//
-//        Ecuacion ec;
-//        ec.val= Valores_parseValores(s);
-//        Valores_mostrar(ec.val);
-//        String_dest(s);
-//        printf("\n\n\n");
-//
-//    }
+
     //Reconocer comando
     Ecuacion ec;
     String pantalla;
@@ -104,7 +81,8 @@ int main(){
         String_addChar(comando, pantalla[j]);
         j++;
     }
-    if(String_eq(comando, "crear\0")){
+    if(String_eq(comando, "crear\0"))
+    {
         String nombre;
         String equacion;
         String_crear(nombre);
@@ -136,15 +114,35 @@ int main(){
         String_mostrar(ec.nombre);
         printf("\nEquacion: \n");
         Valores_mostrar(ec.val);
-    }
-    else{
-        if(String_eq(comando, "")){
 
+        j=0; //Reinicio el cursor
+    }
+    else
+    {
+        if(String_eq(comando, "ayuda\0")){ //INGRESA AYUDA
+            while(pantalla[j]!= ' ' && pantalla[j]!= '\0'){ //Muevo el cursor hasta el siguiente caracter
+                j++;
+            }
+            if(pantalla[j]== '\0'){ //Si no pide ayuda de un comando especifico
+                //Muestro todos los comandos
+            }
+            else{ //Si pide ayuda de un comando especifico
+                String ayudaComando;
+                String_crear(ayudaComando);
+                do{
+                    String_addChar(ayudaComando, pantalla[j]);
+                    j++;
+                }while(pantalla[j]!= '\0');
+                //Ahora ayudaComando tiene el comando del que quiero la ayuda
+            }
+        }
+        else
+        {
+//            if() //INGRESA
+//            {
+//
+//            }
         }
     }
-
-
-
-
     return 0;
 }
