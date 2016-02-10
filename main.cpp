@@ -48,25 +48,25 @@ void ayuda(){ //TODO preguntar si tengo que hacer sobrecarga o hago un switch ca
 
 
 int main(){
-    ayuda();
-    String cargado;
-    String_crear(cargado);
+    //ayuda();
+    String s;
+    String_crear(s);
 
-    printf("%d", String_lar(cargado));
-    while(true){
-        printf("\nIngrese un String: ");
-        String_cargar(cargado);
-        if(String_isNumeric(cargado))
-            printf("true");
-        else
-            printf("false");
-        printf("\nContiene x: ");
-        int temp= String_isVariable(cargado, 'x');
-        if(temp== -1)
-            printf("no");
-        else
-            printf("%d", temp);
-    }
+//    printf("%d", String_lar(cargado));
+//    while(true){
+//        printf("\nIngrese un String: ");
+//        String_cargar(cargado);
+//        if(String_isNumeric(cargado))
+//            printf("true");
+//        else
+//            printf("false");
+//        printf("\nContiene x: ");
+//        int temp= String_isVariable(cargado, 'x');
+//        if(temp== -1)
+//            printf("no");
+//        else
+//            printf("%d", temp);
+//    }
 
 
 
@@ -83,6 +83,69 @@ int main(){
 //
 //        }
 //    }
-    String_dest(cargado);
+
+
+
+//Reconocer ecuacion
+    printf("Ingrese una ecuacion: ");
+    String_cargar(s);
+    Ecuacion ec, original;
+    original.val= ec.val; //Hago el original, para no perder la posicion del puntero original, porque despues lo muevo por cualquier lado
+    ec.val= new Nodo;
+    original.val= ec.val;
+    ec.val->sig= new Nodo;
+    ec.val->valor= "";
+    ec.val->sig->sig= new Nodo;
+    ec.val->sig->valor= "";
+    ec.val->sig->sig->sig= new Nodo;
+    ec.val->sig->sig->valor= "";
+    ec.val->sig->sig->sig->valor= "";
+
+
+
+    int i= 0;
+    while(s[i]!= '\0'){
+        if(i==0){ //Me encuentro en la primer posicion, entonces empiezo a cargar aunque tenga signo
+            String_addChar(ec.val->valor, s[i]);
+        }
+        else{ //No es l;a primer posicion
+            if((s[i]>47 && s[i]<58) || s[i]=='x'){ //Caso de que sea un numero
+                //Lo guardo en la posicion en la que este de la lista
+                String_addChar(ec.val->valor, s[i]);
+            }
+            else{ //caso de que no sea un numero
+                ec.val= ec.val->sig; //Me muevo a la siguiente posicion
+                String_addChar(ec.val->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
+                if(s[i]== '=') //Si en el que estoy parado es un simbolo de igual, entonces me paso al siguiente nodo
+                              //porque no voy a guardar nada mas en ese nodo.
+                    ec.val= ec.val->sig;
+            }
+        }
+        i++;
+    }
+
+    printf("\nMostrar por nodos los Strings\n1-> ");
+    String_mostrar(original.val->valor);
+    printf("\n2-> ");
+    String_mostrar(original.val->sig->valor);
+    printf("\n3-> ");
+    String_mostrar(original.val->sig->sig->valor);
+    printf("\n4-> ");
+    String_mostrar(original.val->sig->sig->sig->valor);
+
+
+
+//    ec.nombre= "pepe\0";
+//    String_mostrar(ec.nombre);
+//    ec.val->sig= NULL;
+//    ec.val->valor= "1x";
+//    ec.val->sig= new Nodo;
+//    ec.val->sig->valor= "32";
+//    String_mostrar(ec.val->valor);
+//    String_mostrar(ec.val->sig->valor);
+
+
+
+    String_dest(s);
     return 0;
 }
