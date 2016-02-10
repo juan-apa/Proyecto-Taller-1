@@ -13,6 +13,7 @@ typedef struct Nodo_A{ //Definicion de los nodos de la lista.
 typedef Nodo* Valores; //Esto es la lista de Strings que contiene los valores.
 
 //Funciones
-
+Valores Valores_parseValores(String s);
+void Valores_mostrar(Valores v);
 
 #endif // VALORES_H_INCLUDED
