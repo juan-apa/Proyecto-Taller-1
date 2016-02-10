@@ -276,11 +276,59 @@ bool String_isNumeric(String s){//Devuelve true si el String solo contiene numer
     bool isNumeric = true;
     int i = 0;
 
-    while(s[i] != '\0' && isNumeric){ //Si se que contiene letras, salgo del while
-        if(s[i]<48 || s[i]>57)
-            isNumeric = false; //caso de que el caracter en el que estoy no es un numero (fijarse tabla ASCII)
+    while(s[i]!='\0' && isNumeric){
+        if(i==0){//Cuando me encuentro en la primer posicion
+            if(s[i]== '+' || s[i]=='-' || s[i]== '.'){//Si la primer posicion es un signo o un punto
+                if((s[i]== '+' && s[i+1]== '+') || (s[i]== '-' && s[i+1]=='-')) //Si la segunda posicion es un + o un -, entonces esta mal
+                    isNumeric= false;
+                if(s[i]== '.' && s[i+1]== '.') //caso de que hayan 2 puntos seguidos
+                    isNumeric= false;
+            }
+            else
+                if((s[i]<48 || s[i]>57) && (s[i]!= '.' || s[i]!= '-' || s[i]!= '+')) //Si no es letra ni punto ni signo en la primer posc
+                    isNumeric= false;
+        }
+        else{ //Me encuentro en cualquier posicion menos la primera
+            if(s[i]== '+' || s[i]== '-'){ //Si tengo un signo en la mitad, entonces esta mal
+                isNumeric= false;
+            }
+            if(s[i]== '.' && s[i+1]== '.') //Caso de que hayan 2 puntos seguidos, esta mal
+                isNumeric= false;
+            if((s[i]<48 || s[i]>57)) //caso de que no sea letra
+                if(s[i]!='.') //caso de que no sea ni letra ni punto
+                    isNumeric= false;
+        }
         i++;
     }
     return isNumeric;
 }
+
+void String_addChar(String &s, char c){ //Agrega c al final del String s
+    //int lar= String_lar(s);
+    String original= s; //Hago una copia de la direccion del String s
+    String temp= new char[String_lar(s)+2]; //Como String_lar me devuelve la cant de caracteres del String, tengo que agregarle 2 espacios
+                                            //uno para el nuevo char, y otro para el '\0'
+    int i= 0;
+    while(s[i]!= '\0'){
+        temp[i]= s[i];
+        i++;
+    }
+    temp[i]= c;
+    temp[i+1]= '\0';
+    s= temp; //s lo asigno a temp
+    String_dest(original); //Elimino el String original, porque no lo voy a usar mas
+}
+
+int String_isVariable(String s, char var){ //Devuelve -1 si s no contiene var, de lo contrario la poscicion en la que se encuentra var.
+    int isVariable= -1;
+    int i= 0;
+    while(isVariable== -1 && s[i]!= '\0'){
+        if(s[i]== var)
+            isVariable= i;
+        i++;
+    }
+    return isVariable;
+}
+
+
 
