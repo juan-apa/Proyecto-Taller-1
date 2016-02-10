@@ -8,7 +8,7 @@
 
 //Funciones para primer entrega
 void ayuda(){ //TODO preguntar si tengo que hacer sobrecarga o hago un switch case aca adentro segun lo que ingrese
-    Para poner el texto en un color determinado bajo windows
+    /*Para poner el texto en un color determinado bajo windows
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
     WORD saved_attributes;
@@ -51,25 +51,6 @@ int main(){
     //ayuda();
     String s;
 
-
-//    printf("%d", String_lar(cargado));
-//    while(true){
-//        printf("\nIngrese un String: ");
-//        String_cargar(cargado);
-//        if(String_isNumeric(cargado))
-//            printf("true");
-//        else
-//            printf("false");
-//        printf("\nContiene x: ");
-//        int temp= String_isVariable(cargado, 'x');
-//        if(temp== -1)
-//            printf("no");
-//        else
-//            printf("%d", temp);
-//    }
-
-
-
     //test reconocer comando y luego ecuacion
 //    int i = 0;
 //    char temp;
@@ -87,79 +68,76 @@ int main(){
 
 
     //Reconocer ecuacion
-    while(true){
-        if(1)
-            printf("true");
-        else
-            printf("false");
-        String_crear(s);
-        printf("Ingrese una ecuacion: ");
-        String_cargar(s);
-        s= String_trim(s);
-
-        Ecuacion ec;
-        ec.val= Valores_parseValores(s);
-        Valores_mostrar(ec.val);
-        String_dest(s);
-        printf("\n\n\n");
-
-    }
-
-//    Ecuacion ec, original;
-//    original.val= ec.val; //Hago el original, para no perder la posicion del puntero original, porque despues lo muevo por cualquier lado
-//    ec.val= new Nodo;
-//    original.val= ec.val;
-//    ec.val->sig= new Nodo;
-//    ec.val->valor= "";
-//    ec.val->sig->sig= new Nodo;
-//    ec.val->sig->valor= "";
-//    ec.val->sig->sig->sig= new Nodo;
-//    ec.val->sig->sig->valor= "";
-//    ec.val->sig->sig->sig->valor= "";
+//    while(true){
+//        if(1)
+//            printf("true");
+//        else
+//            printf("false");
+//        String_crear(s);
+//        printf("Ingrese una ecuacion: ");
+//        String_cargar(s);
+//        s= String_trim(s);
 //
+//        Ecuacion ec;
+//        ec.val= Valores_parseValores(s);
+//        Valores_mostrar(ec.val);
+//        String_dest(s);
+//        printf("\n\n\n");
 //
-//
-//    int i= 0;
-//    while(s[i]!= '\0'){
-//        if(i==0){ //Me encuentro en la primer posicion, entonces empiezo a cargar aunque tenga signo
-//            String_addChar(ec.val->valor, s[i]);
-//        }
-//        else{ //No es l;a primer posicion
-//            if((s[i]>47 && s[i]<58) || s[i]=='x'){ //Caso de que sea un numero
-//                //Lo guardo en la posicion en la que este de la lista
-//                String_addChar(ec.val->valor, s[i]);
-//            }
-//            else{ //caso de que no sea un numero
-//                ec.val= ec.val->sig; //Me muevo a la siguiente posicion
-//                String_addChar(ec.val->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
-//                if(s[i]== '=') //Si en el que estoy parado es un simbolo de igual, entonces me paso al siguiente nodo
-//                              //porque no voy a guardar nada mas en ese nodo.
-//                    ec.val= ec.val->sig;
-//            }
-//        }
-//        i++;
 //    }
+    //Reconocer comando
+    Ecuacion ec;
+    String pantalla;
+    String comando;
 
-//    printf("\nMostrar por nodos los Strings\n1-> ");
-//    String_mostrar(original.val->valor);
-//    printf("\n2-> ");
-//    String_mostrar(original.val->sig->valor);
-//    printf("\n3-> ");
-//    String_mostrar(original.val->sig->sig->valor);
-//    printf("\n4-> ");
-//    String_mostrar(original.val->sig->sig->sig->valor);
+    String_crear(pantalla);
+    String_crear(comando);
 
-    //Valores_mostrar(Valores_parseValores(s));
+    printf("\nIngrese un comando: ");
+    String_cargar(pantalla);
+    int j= 0;
+    while(pantalla[j]!=' '){
+        String_addChar(comando, pantalla[j]);
+        j++;
+    }
+    if(String_eq(comando, "crear\0")){
+        String nombre;
+        String equacion;
+        String_crear(nombre);
+        String_crear(equacion);
 
+        //Leo el nombre
+        while(pantalla[j]==' '){//muevo el cursor hasta el siguiente caracter, el cual va a ser el comienzo del nombre
+            j++;
+        }
+        do{
+            String_addChar(nombre, pantalla[j]);
+            j++;
+        }while(pantalla[j]!= ' ');
 
-//    ec.nombre= "pepe\0";
-//    String_mostrar(ec.nombre);
-//    ec.val->sig= NULL;
-//    ec.val->valor= "1x";
-//    ec.val->sig= new Nodo;
-//    ec.val->sig->valor= "32";
-//    String_mostrar(ec.val->valor);
-//    String_mostrar(ec.val->sig->valor);
+        //Leo la ecuacion
+        while(pantalla[j]== ' '){//Muevo el cursor hasta que aparezca el siguiente caracter
+            j++;
+        }
+        do{
+            String_addChar(equacion, pantalla[j]);
+            j++;
+        }while(pantalla[j]!='\0');
+
+        equacion= String_trim(equacion);
+        ec.nombre= nombre;
+        ec.val= Valores_parseValores(equacion);
+        //Muestro todo cargado en la estructura Ecuacion
+        printf("\n\nNombre: ");
+        String_mostrar(ec.nombre);
+        printf("\nEquacion: \n");
+        Valores_mostrar(ec.val);
+    }
+    else{
+        if(String_eq(comando, "")){
+
+        }
+    }
 
 
 
