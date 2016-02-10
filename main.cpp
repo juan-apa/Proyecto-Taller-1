@@ -8,7 +8,7 @@
 
 //Funciones para primer entrega
 void ayuda(){ //TODO preguntar si tengo que hacer sobrecarga o hago un switch case aca adentro segun lo que ingrese
-    /*Para poner el texto en un color determinado bajo windows
+    Para poner el texto en un color determinado bajo windows
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
     WORD saved_attributes;
