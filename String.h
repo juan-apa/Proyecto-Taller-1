@@ -38,6 +38,8 @@ String String_valueOf(int n); //De un int, me devuelve un String con el n: int p
 
 bool String_isNumeric(String s); //Devuelve true si el String solo contiene numeros.
 
-String String_addChar(String s, char c); //Agrega c: char al final del s: String.
+void String_addChar(String &s, char c); //Agrega c: char al final del s: String.
+
+int String_isVariable(String s, char var); //Devuelve (-1) si el String s no contiene el char var, de lo contrario, devuelve la posicion en la que se encuentra
 
 #endif // STRING_H_INCLUDED
