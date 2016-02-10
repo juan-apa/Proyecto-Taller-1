@@ -21,9 +21,10 @@ Valores Valores_parseValores(String s){
     int i= 0;
 
     while(s[i]!= '\0'){
-        if(i==0){ //Si me encuentro en la primer posicion, entonces empiezo a cargar ya tenga un signo o un numero
-                  //Cargo sin importar, porque si fuese un signo, crearia un nuevo nodo, quedando asi el primer nodo vacio
-            String_addChar(va->valor, s[i]);
+        if(i==0){ //Si me encuentro en la primer posicion, entonces empiezo a cargar ya tenga un signo de '-' o un numero
+                  //Cargo, porque si fuese un signo de '-', crearia un nuevo nodo, quedando asi el primer nodo vacio
+            if(s[i]!='+')
+                String_addChar(va->valor, s[i]);
         }
         else{ //No es la primer posicion. Si no pongo el else, en la primer posicion se va a ejecutar lo de arriba y las siguientes lineas, lo cual es incorrecto
             if((s[i]>47 && s[i]<58) || s[i]=='x'){ //Caso de que sea un numero o la variable x
