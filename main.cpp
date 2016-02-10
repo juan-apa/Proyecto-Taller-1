@@ -88,6 +88,10 @@ int main(){
 
     //Reconocer ecuacion
     while(true){
+        if(1)
+            printf("true");
+        else
+            printf("false");
         String_crear(s);
         printf("Ingrese una ecuacion: ");
         String_cargar(s);

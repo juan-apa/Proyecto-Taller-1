@@ -4,12 +4,20 @@
 Valores Valores_parseValores(String s){
     Valores va= new Nodo; //Tengo que crear un nuevo nodo, porque sin importar el valor de la primer posicion del String s
                           //voy a guardarlo en el primer nodo.
+
     String_crear(va->valor); //Tengo que crear los String del nodo nuevo, porque sino la funcion String_addChar()
                              //no anda, ya que necesita un String ya inicializado.
+
     Valores original= va; //Hago una copia de la posicion del primer nodo, porque despues voy a estar moviendome
                           //por la lista y pierdo la primer posicion, por lo tanto, luego de las iteraciones no voy
                           //a tener el comienzo de la lista y no lo voy a poder devolver.
-    Valores anterior= va;
+
+    Valores anterior= va; //Creo un nuevo puntero para llevar una posicion del nodo anterior al que me encuentro parado.
+                          //Como el primer nodo no tiene un nodo anterior, lo inicializo como el primero. Una vez dentro del while
+                          //a medida que me muevo por los nodos, voy apuntando al nodo en el que estoy antes de moverme al siguiente.
+                          //Hago este puntero, para tener en cuenta los signos despues de que pase el '=' en la ecuacion. Asi se si
+                          //omitir el '+' cuando tengo "=+1", queda "= 1", asi como los espacios del '-'
+                          //cuando tengo "=-1", queda "= -1" en lugar de "= - 1"
     int i= 0;
 
     while(s[i]!= '\0'){
@@ -21,13 +29,14 @@ Valores Valores_parseValores(String s){
             if((s[i]>47 && s[i]<58) || s[i]=='x'){ //Caso de que sea un numero o la variable x
                 String_addChar(va->valor, s[i]); //Lo guardo en la posicion en la que este de la lista
             }
-            else{ //caso de que no sea un numero
-                anterior= va;
+            else{ //CASO DE QUE EN EL QUE ESTOY NO ES UN NUMERO
+                anterior= va; //Guardo la posicion en la que estoy parado y luego me muevo al siguiente
                 va->sig= new Nodo; //creo un nuevo nodo
                 va= va->sig; //Me muevo a la siguiente posicion
                 String_crear(va->valor); //Inicializo valor: String del nuevo nodo.
-
-                if(String_eq(String_trim(anterior->valor), "=\0")){
+                //TODO preguntar a bea como hago con el destruir, tengo que destruir el String trimeado?
+                //si lo tengo que destruir, entonces tengo que asignarlo a una variable antes de igualar en el if(), y despues destruirlo
+                if(String_eq(String_trim(anterior->valor), "=\0")){ //Entra en este if si el nodo anterior es el "="
                     //caso de que el nodo anterior sea signo de igual, no quiero guardar el signo '+', pero si el signo '-'
                     if(s[i]== '-'){
                         String_addChar(va->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
@@ -35,7 +44,7 @@ Valores Valores_parseValores(String s){
                     //si no es == '-', entonces no guardo, ya que las unicas posibilidades que tengo dentro de este if es que
                     //el nodo anterior es == "=", y ahora estoy posicionado en un '+' o un '-'
                 }
-                else{
+                else{ //Si el nodo anterior no es el "=", entonces guardo el caracter normalmente con los espacios
                     String_addChar(va->valor, ' ');
                     String_addChar(va->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
                     String_addChar(va->valor, ' ');

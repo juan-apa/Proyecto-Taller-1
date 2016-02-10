@@ -319,11 +319,11 @@ void String_addChar(String &s, char c){ //Agrega c al final del String s
     String_dest(original); //Elimino el String original, porque no lo voy a usar mas
 }
 
-int String_isVariable(String s, char var){ //Devuelve -1 si s no contiene var, de lo contrario la poscicion en la que se encuentra var.
+int String_isVariable(String s){ //Devuelve -1 si s no contiene var, de lo contrario la poscicion en la que se encuentra var.
     int isVariable= -1;
     int i= 0;
     while(isVariable== -1 && s[i]!= '\0'){
-        if(s[i]== var)
+        if(s[i]== 'x')
             isVariable= i;
         i++;
     }
