@@ -9,6 +9,7 @@ Valores Valores_parseValores(String s){
     Valores original= va; //Hago una copia de la posicion del primer nodo, porque despues voy a estar moviendome
                           //por la lista y pierdo la primer posicion, por lo tanto, luego de las iteraciones no voy
                           //a tener el comienzo de la lista y no lo voy a poder devolver.
+    Valores anterior= va;
     int i= 0;
 
     while(s[i]!= '\0'){
@@ -21,15 +22,30 @@ Valores Valores_parseValores(String s){
                 String_addChar(va->valor, s[i]); //Lo guardo en la posicion en la que este de la lista
             }
             else{ //caso de que no sea un numero
+                anterior= va;
                 va->sig= new Nodo; //creo un nuevo nodo
                 va= va->sig; //Me muevo a la siguiente posicion
                 String_crear(va->valor); //Inicializo valor: String del nuevo nodo.
-                String_addChar(va->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
+
+                if(String_eq(String_trim(anterior->valor), "=\0")){
+                    //caso de que el nodo anterior sea signo de igual, no quiero guardar el signo '+', pero si el signo '-'
+                    if(s[i]== '-'){
+                        String_addChar(va->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
+                    }
+                    //si no es == '-', entonces no guardo, ya que las unicas posibilidades que tengo dentro de este if es que
+                    //el nodo anterior es == "=", y ahora estoy posicionado en un '+' o un '-'
+                }
+                else{
+                    String_addChar(va->valor, ' ');
+                    String_addChar(va->valor, s[i]); //agrego el caracter en el que estoy al String del nodo en el que estoy parado
+                    String_addChar(va->valor, ' ');
+                }
                 if(s[i]== '=' && s[i+1]!='+' && s[i+1]!='-'){
                     //Si en el que estoy parado es un simbolo de igual, entonces me paso al siguiente nodo
                     //porque no voy a guardar nada mas en ese nodo. En cambio si el siguiente simbolo es un mas o un menos
                     //no voy a insertar un nuevo nodo, porque eso lo va a hacer en la siguiente iteracion. por ejemplo si tengo
                     //2x=-1 quedarian los nodos 1->2x; 2->=; 3->(vacío); 4->-1;
+                    anterior= va;
                     va->sig= new Nodo;
                     va= va->sig;
                     String_crear(va->valor);
@@ -46,10 +62,11 @@ void Valores_mostrar(Valores v){
     //No hay que hacer copia del primer puntero, porque estoy pasando por valor, no por referencia, por lo tanto solo trabajo con una copia
     int i= 1;
     while(v!=NULL){
-       printf("%d: ", i);
+       //printf("%d:", i);
        String_mostrar(v->valor);
        v=v->sig; //Me muevo al siguiente nodo
-       printf("\n");
+       //printf("\n");
        i++;
     }
+    printf("\nNodos: %d\n\n", i-1);
 }

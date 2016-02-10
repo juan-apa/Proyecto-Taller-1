@@ -42,4 +42,6 @@ void String_addChar(String &s, char c); //Agrega c: char al final del s: String.
 
 int String_isVariable(String s, char var); //Devuelve (-1) si el String s no contiene el char var, de lo contrario, devuelve la posicion en la que se encuentra
 
+String String_trim(String s); //Me deuvelve el String s sin los espacios en blanco
+
 #endif // STRING_H_INCLUDED

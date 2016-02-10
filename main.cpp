@@ -50,7 +50,7 @@ void ayuda(){ //TODO preguntar si tengo que hacer sobrecarga o hago un switch ca
 int main(){
     //ayuda();
     String s;
-    String_crear(s);
+
 
 //    printf("%d", String_lar(cargado));
 //    while(true){
@@ -86,9 +86,21 @@ int main(){
 
 
 
-//Reconocer ecuacion
-    printf("Ingrese una ecuacion: ");
-    String_cargar(s);
+    //Reconocer ecuacion
+    while(true){
+        String_crear(s);
+        printf("Ingrese una ecuacion: ");
+        String_cargar(s);
+        s= String_trim(s);
+
+        Ecuacion ec;
+        ec.val= Valores_parseValores(s);
+        Valores_mostrar(ec.val);
+        String_dest(s);
+        printf("\n\n\n");
+
+    }
+
 //    Ecuacion ec, original;
 //    original.val= ec.val; //Hago el original, para no perder la posicion del puntero original, porque despues lo muevo por cualquier lado
 //    ec.val= new Nodo;
@@ -123,9 +135,7 @@ int main(){
 //        }
 //        i++;
 //    }
-    Ecuacion ec;
-    ec.val= Valores_parseValores(s);
-    Valores_mostrar(ec.val);
+
 //    printf("\nMostrar por nodos los Strings\n1-> ");
 //    String_mostrar(original.val->valor);
 //    printf("\n2-> ");
@@ -135,7 +145,6 @@ int main(){
 //    printf("\n4-> ");
 //    String_mostrar(original.val->sig->sig->sig->valor);
 
-    printf("\n\n\n");
     //Valores_mostrar(Valores_parseValores(s));
 
 
@@ -150,6 +159,6 @@ int main(){
 
 
 
-    String_dest(s);
+
     return 0;
 }
