@@ -319,15 +319,35 @@ void String_addChar(String &s, char c){ //Agrega c al final del String s
     String_dest(original); //Elimino el String original, porque no lo voy a usar mas
 }
 
-int String_isVariable(String s, char var){ //Devuelve -1 si s no contiene var, de lo contrario la poscicion en la que se encuentra var.
+int String_isVariable(String s){ //Devuelve -1 si s no contiene var, de lo contrario la poscicion en la que se encuentra var.
     int isVariable= -1;
     int i= 0;
     while(isVariable== -1 && s[i]!= '\0'){
-        if(s[i]== var)
+        if(s[i]== 'x')
             isVariable= i;
         i++;
     }
     return isVariable;
+}
+
+String String_trim(String s){ //Me deuvelve el String s sin los espacios en blanco
+    String s1= new char[MAX];
+    String s2;
+    int i= 0, j= 0;
+    while(s[i]!= '\0'){
+        if(s[i]!= ' '){
+            s1[j]= s[i];
+            j++; //tengo 2 indices, sino en el String s1, me quedan espacios en blanco entre las letras, por ejemplo
+            //s = "me llamo pepe"
+            //s1= "me llamo pepe" en lugar de "mellamopepe", porque el indice i va a seguir moviendose con el string que tiene los espacios, en cambio j solo se mueve cuando no detecta un espacio
+        }
+        i++;
+    }
+    s1[j]= '\0';
+    String_cop(s2, s1); //lo copio en s2, para poder borrar los espacios extra de memoria reservados.
+                        //puedo hacer esto, porque String_cop(solo lee hasta que llega al '\0')
+    String_dest(s1); //TODO preguntar a bea si lo tengo que destruir o no, creo que si, pero no estoy seguro
+    return s2;
 }
 
 
