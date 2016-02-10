@@ -10,4 +10,11 @@ typedef struct{
     Valores val;
 }Ecuacion;
 
+//Funciones
+String Ecuacion_getNombre(Ecuacion ec);
+
+Valores Ecuacion_getValores(Ecuacion ec);
+
+
+
 #endif // ECUACION_H_INCLUDED
