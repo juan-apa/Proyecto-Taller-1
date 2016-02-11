@@ -1,6 +1,10 @@
 #include "Valores.h"
 
 //Funciones
+String getValor(Valores v){
+    return v->valor;
+}
+
 Valores Valores_parseValores(String s){
     Valores va= new Nodo; //Tengo que crear un nuevo nodo, porque sin importar el valor de la primer posicion del String s
                           //voy a guardarlo en el primer nodo.
@@ -79,4 +83,44 @@ void Valores_mostrar(Valores v){
        i++;
     }
     printf("\nNodos: %d\n\n", i-1);
+}
+
+bool Valores_verificarEcuacion(Valores v){
+    //TODO poner esto en el modulo String, porque tengo que verificar la ecuacion antes de cargarla en la ecuacion
+    //tengo que verificar que solo haya un '=', qye haya un nodo despues del '='
+    //tengo que verificar que haya una variable
+    //tengo que verificar que solo hayan 'x', nums del 0 al 9, signos '+', '-' y '='
+    Valores anterior= v;
+    //String s;
+    bool esValido= true;
+    bool tienex= false;
+    bool tieneIgual= false;
+    int i= 0;
+    while(v!= NULL && esValido){
+        String s= String_trim(getValor(v));
+        i= 0; //Reseteo el indice, para recorrer el String del nodo en el que estoy
+        while(s[i]!= '\0' && esValido){ //Recorro el String del nodo en el que estoy
+            s= String_trim(s); //FIXME revisar alocacion de memoria para el borrado
+                               //FIXME tal vez modificar la funcion con un bool para poner si borro o no la sin espacios
+            if((s[i]<48 || s[i]>57) && s[i]!= '+' && s[i]!= '-' && s[i]!= 'x'){//Si no es un caracter de los aceptados
+                esValido= false;
+            }
+            else{ //Es un caracter aceptado
+                if(s[i]== '=' && tieneIgual)
+                    esValido= false;
+                if(s[i]== '+' && s[i+1]== '+')
+                    esValido= false;
+
+            }
+            i++;
+        }
+        String_dest(s); //Tengo que hacer la declaracion y la destruccion dentro del while
+                        //Porque sino nunca puedo liberar a memoria que ocupe para el String trimeado,
+                        //porque pierdo el puntero cuando paso al siguiente nodo
+        anterior= v;
+        v= v->sig;
+    }
+
+
+
 }

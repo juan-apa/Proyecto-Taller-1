@@ -3,6 +3,7 @@
 //#include "String.h"
 #include<windows.h>
 #include "Ecuacion.h"
+#include "Arbol.h"
 //TODO hacer modulo del arbol de ecuaciones
 
 
