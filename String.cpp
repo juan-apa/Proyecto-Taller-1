@@ -344,6 +344,7 @@ String String_trim(String s){ //Me deuvelve el String s sin los espacios en blan
         i++;
     }
     s1[j]= '\0';
+    String_crear(s2);
     String_cop(s2, s1); //lo copio en s2, para poder borrar los espacios extra de memoria reservados.
                         //puedo hacer esto, porque String_cop(solo lee hasta que llega al '\0')
     String_dest(s1); //TODO preguntar a bea si lo tengo que destruir o no, creo que si, pero no estoy seguro
